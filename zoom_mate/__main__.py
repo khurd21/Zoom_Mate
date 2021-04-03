@@ -19,8 +19,6 @@ if operating_system == 'Darwin':
         for sel in selection: 
             if sel in globals.COMMANDS:
                 globals.COMMANDS[sel]()
-            if sel == 'exit':
-                quit()
 
 
 elif operating_system == 'Linux':

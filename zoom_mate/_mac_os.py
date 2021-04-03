@@ -162,7 +162,7 @@ def _leave_meeting_osx():
 
 def _exit_zoom_osx():
     os.system('killall "zoom.us"')
-    return
+    exit()
 
 
 def _open_zoom_osx():
