@@ -53,20 +53,40 @@ def display_meetings():
 
 def get_meeting_selection():
     len_of_meetings = len(globals.ZOOM_MEETINGS)
+
+    # Case 1
     if len_of_meetings == 0:
         return
 
-    sel = -1
-    while True:
+    # Case 2
+    if len(globals.COMMANDS) > 1:
         try:
-            sel = int(input('Select the meeting:\n>> '))
+            sel = int(globals.SELECTION_QUEUE[1])
             if sel <= len_of_meetings and sel > 0:
                 globals.MEETING_SELECTION = sel
-                break
+                globals.SELECTION_QUEUE.pop(1)
+                return
+            else:
+                print(f'{sel} exceeds number of meetings available.')
+        except:
+            pass
+
+    # Case 3
+    display_meetings()
+    while True:
+        try:
+            selections = input('Select the meeting:\n>> ').strip().lower().split()
+            sel = int(selections[0])
+            selections.pop(0)
+            if sel <= len_of_meetings and sel > 0:
+                globals.MEETING_SELECTION = sel
+                for command in selections:
+                    globals.SELECTION_QUEUE.insert(1, command)
+                return
 
             print(f'{sel} value exceeds number of meetings: {len_of_meetings}')
         except ValueError:
             print('ValueError. Enter meeting numer [1, ..., 3].')
         else:
             print('Unkown issue.')
-    return sel
+    return

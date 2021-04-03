@@ -14,11 +14,14 @@ import _mac_os
 FILE_SETTINGS_LOCATION = './files'
 IMAGES_LOCATION_MACOS = './files/_img_macos'
 
+# Queue - like behavior for grabbing string of commands
+# Any command inside of SELECTION list will be executed on start-up
+SELECTION_QUEUE = ['open'] 
 ZOOM_MEETINGS = []
 MEETING_SELECTION = -1
 WAIT_TIME_BETWEEN_COMMANDS = 0.5        # Make this value higher if your computer cannot keep up with commmands
-                                        # ONLY FOR WHEN ZOOM IS ALREADY RUNNING
-
+                                        # ONLY FOR WHEN ZOOM IS ALREADY RUNNING 
+ 
 _MAC_OS = True if platform.system() == 'Darwin' else False
 _WINDOWS = True if platform.system() == 'Windows' else False
 _LINUX = True if platform.system() == 'Linux' else False

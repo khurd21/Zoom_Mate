@@ -14,11 +14,18 @@ del data
 operating_system = platform.system()
 if operating_system == 'Darwin':
 
+    from _mac_os import is_terminal_focused_osx, _open_terminal_osx
+
     while True:
-        selection = input('>> ').strip().lower().split()
-        for sel in selection: 
-            if sel in globals.COMMANDS:
-                globals.COMMANDS[sel]()
+        while len(globals.SELECTION_QUEUE) != 0:
+            if globals.SELECTION_QUEUE[0] in globals.COMMANDS:
+                globals.COMMANDS[globals.SELECTION_QUEUE[0]]()
+            globals.SELECTION_QUEUE.pop(0)
+
+        if not is_terminal_focused_osx():
+            _open_terminal_osx()
+
+        globals.SELECTION_QUEUE = input('>> ').strip().lower().split()
 
 
 elif operating_system == 'Linux':

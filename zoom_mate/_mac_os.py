@@ -23,8 +23,26 @@ def is_zoom_focused_osx():
     return workspace.activeApplication()['NSApplicationName'] == 'zoom.us'
 
 
+def is_terminal_focused_osx():
+    workspace = NSWorkspace.sharedWorkspace()
+    return workspace.activeApplication()['NSApplicationName'] == 'terminal'
+
+
+def _open_terminal_osx():
+    os.system('open -a "terminal"')
+    return
+
+def _exit_zoom_osx():
+    os.system('killall "zoom.us"')
+    exit()
+
+
+def _open_zoom_osx():
+    os.system('open -a "zoom.us"')
+    return
+
+
 def _join_meeting_osx():
-    zm.display_meetings()
     zm.get_meeting_selection()
     meeting = globals.ZOOM_MEETINGS[globals.MEETING_SELECTION - 1]
     if meeting.password == None:
@@ -40,6 +58,7 @@ def _join_meeting_osx():
     time.sleep(7)
     if not is_zoom_focused_osx():
         _open_zoom_osx()
+        time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/join_with_computer_audio.png',
         confidence = 0.8
@@ -157,14 +176,4 @@ def _leave_meeting_osx():
         if loc != None:
             py.hotkey('command', 'w')
             py.press('enter')
-    return
-
-
-def _exit_zoom_osx():
-    os.system('killall "zoom.us"')
-    exit()
-
-
-def _open_zoom_osx():
-    os.system('open -a "zoom.us"')
     return
