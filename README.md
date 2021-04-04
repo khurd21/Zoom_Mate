@@ -8,6 +8,10 @@ Type in 'join' to receive a list of your scheduled meetings. To select which mee
 
 Once you have selected the meeting to join, Zoom will begin to launch, adding you to the call and connecting you to computer audio, all without intervention! Once in a call, you can use any of the commands that are described below.
 
+You can also list multiple commands in a queue-like fashion that will execute in order. For example:
+
+'unmute display share' will first unmute your audio, turn on video, and share your screen.
+'join <id_num> mute undisplay' will join the zoom meeting of a specified id and make sure your audio and video is off.
 
 # Commands to Get Started
 
