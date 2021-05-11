@@ -28,18 +28,19 @@ def is_terminal_focused_osx():
     return workspace.activeApplication()['NSApplicationName'] == 'terminal'
 
 
-def _open_terminal_osx():
+def open_terminal_osx():
     os.system('open -a "terminal"')
     return
+
+
+def open_zoom_osx():
+    os.system('open -a "zoom.us"')
+    return
+
 
 def _exit_zoom_osx():
     os.system('killall "zoom.us"')
     exit()
-
-
-def _open_zoom_osx():
-    os.system('open -a "zoom.us"')
-    return
 
 
 def _join_meeting_osx():
@@ -57,7 +58,7 @@ def _join_meeting_osx():
             )
     time.sleep(7)
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/join_with_computer_audio.png',
@@ -70,7 +71,7 @@ def _join_meeting_osx():
 
 def _quit_meeting_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     py.hotkey('command', 'W')
     py.press('enter')
@@ -79,7 +80,7 @@ def _quit_meeting_osx():
 
 def _mute_audio_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/mute_button_on_1.png',
@@ -92,7 +93,7 @@ def _mute_audio_osx():
 
 def _unmute_audio_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/mute_button_off.png',
@@ -105,7 +106,7 @@ def _unmute_audio_osx():
 
 def _display_video_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/video_off.png',
@@ -118,7 +119,7 @@ def _display_video_osx():
 
 def _undisplay_video_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/video_on_1.png',
@@ -131,7 +132,7 @@ def _undisplay_video_osx():
 
 def _share_screen_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/share_screen.png',
@@ -146,7 +147,7 @@ def _share_screen_osx():
 
 def _unshare_screen_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/stop_share.png',
@@ -159,7 +160,7 @@ def _unshare_screen_osx():
 
 def _leave_meeting_osx():
     if not is_zoom_focused_osx():
-        _open_zoom_osx()
+        open_zoom_osx()
         time.sleep(globals.WAIT_TIME_BETWEEN_COMMANDS)
     loc = py.locateOnScreen(
         globals.IMAGES_LOCATION_MACOS + '/leave_meeting.png',

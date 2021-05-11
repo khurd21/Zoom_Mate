@@ -12,7 +12,7 @@ import _mac_os
 
 
 FILE_SETTINGS_LOCATION = './files'
-IMAGES_LOCATION_MACOS = './files/_img_macos'
+IMAGES_LOCATION_MACOS = './files/img_macos'
 
 # Queue - like behavior for grabbing string of commands
 # Any command inside of SELECTION list will be executed on start-up
@@ -63,7 +63,7 @@ COMMANDS = {
     else _join_meeting_linux if _LINUX 
     else None
     ),
-    'open' : (_mac_os._open_zoom_osx if _MAC_OS
+    'open' : (_mac_os.open_zoom_osx if _MAC_OS
     else _open_zoom_win32 if _WINDOWS
     else _open_zoom_linux if _LINUX
     else None

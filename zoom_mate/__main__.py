@@ -14,7 +14,7 @@ del data
 operating_system = platform.system()
 if operating_system == 'Darwin':
 
-    from _mac_os import is_terminal_focused_osx, _open_terminal_osx
+    from _mac_os import is_terminal_focused_osx, open_terminal_osx
 
     while True:
         while len(globals.SELECTION_QUEUE) != 0:
@@ -23,7 +23,7 @@ if operating_system == 'Darwin':
             globals.SELECTION_QUEUE.pop(0)
 
         if not is_terminal_focused_osx():
-            _open_terminal_osx()
+            open_terminal_osx()
 
         globals.SELECTION_QUEUE = input('>> ').strip().lower().split()
 
