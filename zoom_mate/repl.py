@@ -1,4 +1,8 @@
-def get_commands(zoom_object):
+from config import Config
+from .zoom_object import generate_object
+
+
+def _get_commands(zoom_object):
     return {
     'undisplay' : zoom_object._undisplay_video,
     'display'   : zoom_object._display_video,
@@ -14,8 +18,10 @@ def get_commands(zoom_object):
 
 
 SELECTION_QUEUE = ['open']
-def repl(zoom_object):
+def repl(zoom_object=None, config=Config):
 
+    if zoom_object is None:
+        zoom_object = generate_object(config=config)
     COMMANDS = get_commands(zoom_object)
 
     while True:
