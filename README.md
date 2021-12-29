@@ -13,6 +13,15 @@ You can also list multiple commands in a queue-like fashion that will execute in
 'unmute display share' will first unmute your audio, turn on video, and share your screen.
 'join <id_num> mute undisplay' will join the zoom meeting of a specified id and make sure your audio and video is off.
 
+# Note for Macs with ARM
+
+Performing a `pip install -r requirements.txt` did not appear to work when it came across
+`opencv-python`. I am not sure as to why this occurs, but my solution was to manually perform the following commands:  
+
+`pip install pyautogui`
+`pip install opencv-python`
+`pip install Pillow`
+
 # Commands to Get Started
 
 open      - launches the zoom.us application

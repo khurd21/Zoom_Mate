@@ -8,9 +8,17 @@
 # Tested: Python3.7
 #############################
 import datetime as dt
-import src.globals as globals
+from dataclasses import dataclass
 
-class Zoom_Meeting:
+@dataclass
+class ZoomMeeting:
+
+    meeting_id  : str
+    password    : str
+    class_name  : str
+    start_time  : str
+    end_time    : str
+    days        : list
 
     def __init__(self,id='',pwd='',n='',st=dt.datetime(1,1,1,0,0),et=dt.datetime(1,1,1,0,0)):
         self.meeting_id = id
@@ -22,35 +30,8 @@ class Zoom_Meeting:
         return
 
 # END OF CLASS
-
-def generate_zoom_meeting_list_from_dictionary(dic):
-    globals.ZOOM_MEETINGS = []
-    for m in dic['meetings']:
-        zm = Zoom_Meeting()
-        zm.meeting_id = m['meeting_id']
-        zm.password = m['password'] if m['password'] != 'None' else None
-        zm.start_time = m['start_time']
-        zm.end_time = m['end_time']
-        zm.class_name = m['class_name']
-        zm.days = [eval(m['days'][key]) for key in m['days']]
-        globals.ZOOM_MEETINGS.append(zm)
-    return
-
-
-def display_meetings():
-    if globals.ZOOM_MEETINGS == None:
-        return
-    
-    for i, meeting in enumerate(globals.ZOOM_MEETINGS):
-        print(
-            f'{i+1}.\n' \
-            f'Meeting:    {meeting.class_name}\n' \
-            f'Start Time: {meeting.start_time}\n' \
-            f'End Time:   {meeting.end_time}\n'   \
-            )
-    return
-
-
+import src.globals as globals
+### MOVE ME TO BASE OBJECT CLASS
 def get_meeting_selection():
     len_of_meetings = len(globals.ZOOM_MEETINGS)
 

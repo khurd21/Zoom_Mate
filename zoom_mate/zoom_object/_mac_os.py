@@ -12,10 +12,32 @@ import time
 import pyautogui as py
 from AppKit import NSWorkspace
 import src.globals as globals
-from src.zoom_object import Zoom_Meeting
-import src.zoom_object as zm
+import zoom_object as zm
 
-py.PAUSE = 1
+from config import Config
+from .base_object import ZoomObject
+
+py.PAUSE = 0.5
+
+class _MAC_OS(ZoomObject):
+
+    def __init__(self, config=Config):
+        super().__init__(config=config)
+
+
+def repl():
+
+    while True:
+        while len(globals.SELECTION_QUEUE) != 0:
+            if globals.SELECTION_QUEUE[0] in globals.COMMANDS:
+                globals.COMMANDS[globals.SELECTION_QUEUE[0]]()
+            globals.SELECTION_QUEUE.pop(0)
+
+        if not is_terminal_focused_osx():
+            open_terminal_osx()
+
+        globals.SELECTION_QUEUE = input('>> ').strip().lower().split()
+    return
 
 
 def is_zoom_focused_osx():
@@ -178,3 +200,7 @@ def _leave_meeting_osx():
             py.hotkey('command', 'w')
             py.press('enter')
     return
+
+
+def _start_new_meeting_osx():
+    pass
