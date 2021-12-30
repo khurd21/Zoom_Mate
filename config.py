@@ -2,7 +2,6 @@
 import os
 from dataclasses import dataclass
 
-from zoom_mate.src.globals import WAIT_TIME_BETWEEN_COMMANDS
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 

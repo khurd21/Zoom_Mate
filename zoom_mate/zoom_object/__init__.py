@@ -1,18 +1,21 @@
 import platform
 from config import Config
 
-from ._mac_os import _MAC_OS
-from .base_object import ZoomObject
 
+_OBJECT = None
+_SYSTEM = platform.system()
 
-PLATFORMS = {
-    'Darwin' : _MAC_OS,
-    #'Linux'  : 'Not Implemented',
-    #'Windows': 'Not Implemented',
-}
+if _SYSTEM == 'Darwin':
+    from ._mac_os import _MAC_OS
+    _OBJECT = _MAC_OS
+elif _SYSTEM == 'Linux':
+    raise NotImplementedError(f'{_SYSTEM} is not supported yet.')
+elif _SYSTEM == 'Windows':
+    raise NotImplementedError(f'{_SYSTEM} is not supported yet.')
+
 
 
 def generate_object(config=Config):
-    if (plt := platform.system()) in PLATFORMS.keys():
-        return PLATFORMS[plt](config=config)
-    raise Exception(f'Operating System {plt} not supported.')
+    if _OBJECT:
+        return _OBJECT(config=config)
+    raise Exception(f'Operating System {_SYSTEM} not supported.')
