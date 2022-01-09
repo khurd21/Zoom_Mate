@@ -1,5 +1,3 @@
-
-
 ##############################
 # Name: Kyle Hurd
 # Date: 02/31/2021
@@ -11,7 +9,6 @@ import os
 import time
 import pyautogui as py
 from AppKit import NSWorkspace
-import zoom_object as zm
 
 from config import Config
 from .base_object import ZoomObject
@@ -34,17 +31,23 @@ class _MAC_OS(ZoomObject):
             .activeApplication()['NSApplicationName'] \
                 .lower() == target.lower()
 
+    
+    def is_running(target) -> bool:
+        return target not in [x.localizedName() for x in NSWorkspace.sharedWorkspace().runningApplications()]
 
-    def open_app(self, app):
+
+    def open_app(self, app) -> None:
         os.system(f'open -a "{app}"')
-
-
-    def REMOVEopen_zoom(self):
-        if not self.is_zoom_focused():
-            os.system('open -a "zoom.us"')
-        while 'zoom.us' not in [x.localizedName() for x in NSWorkspace.sharedWorkspace().runningApplications()]:
-            time.sleep(2)
         return
+
+
+    def get_meeting_selection(self) -> int:
+        self.display_meetings()
+        meeting_selection = input('Selection [empty to back out]: ')
+
+        if meeting_selection.isdigit() and (meeting_selection := int(meeting_selection) - 1) in range(0, len(self.meetings)):
+            return meeting_selection
+        return -1
 
 
     def _exit_zoom(self):
@@ -53,8 +56,11 @@ class _MAC_OS(ZoomObject):
 
 
     def _join_meeting(self):
-        zm.get_meeting_selection() ### USE SELF.MEETINGS
-        meeting = globals.ZOOM_MEETINGS[globals.MEETING_SELECTION - 1]
+        meeting_selection = self.get_meeting_selection()
+        if meeting_selection == -1:
+            return 
+
+        meeting = self.meetings[meeting_selection]
         if meeting.password == None:
             os.system(
                 f'open "zoommtg://zoom.us/join?confno' \

@@ -22,12 +22,12 @@ def repl(zoom_object=None, config=Config):
 
     if zoom_object is None:
         zoom_object = generate_object(config=config)
-    COMMANDS = get_commands(zoom_object)
+    COMMANDS = _get_commands(zoom_object)
 
     while True:
         for command in SELECTION_QUEUE:
             if command in COMMANDS:
-                pass
+                COMMANDS[command]()
         SELECTION_QUEUE.clear()
 
         if not zoom_object.is_terminal_focused():
